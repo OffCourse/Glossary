@@ -1,0 +1,87 @@
+Offcourse Glossary
+==================
+Author Name <yeehaa@offcourse.io>
+v1.0, 2015-30-11
+
+== Hierarchy of Elements
+
+Disclaimer: This document is still under heavy construction. Element names are for internal use / development purposes only.
+
+=== *Collection
+
+A collection is a bundle of courses. These are not User Generated (yet)
+
+.Schema
+[source,json]
+----
+{
+  "collection_id": STRING,
+  "collection_type": ENUM ["flags", "users", "tags"],
+  "collection_ids": ARRAY [course_id]
+}
+----
+
+=== Course
+
+A course is a list of tasks (checkpoints), that can either be original or forked from another course.
+
+.Schema
+[source,json]
+----
+{
+  "course_id": UUID,
+  "curator": USER_ID,
+  "course_version": Float,
+  "goal": STRING (Max-length 40 chars),
+  "description": STRING (Max-length 120 chars),
+  "flags" : *ARRAY [Strings],
+  "time_created": *DATE,
+  "time_updated": *DATE,
+  "tags": *ARRAY [String],
+  "forked_from": *OBJECT {"curator": USER_ID,
+                         "course_id": COURSE_ID,
+                         "course_version": Float},
+  "forks": *ARRAY [Object {"curator_id": USER_ID,
+                         "course_id": COURSE_ID,
+                         "course_version": 1}],
+  "checkpoints": ARRAY [CHECKPOINT] Max 7
+}
+----
+
+=== Checkpoint
+
+A checkpoint is basically a todo item combined with a bookmark.
+
+.Schema
+[source,json]
+----
+{
+  "checkpoint_id": UUID,
+  "resource_id": RESOURCE_ID,
+  "completed?": BOOLEAN,
+  "order": INT,
+  "task": STRING (Max-length 40 chars),
+  "tags": ARRAY [STRING] Max 3
+}
+----
+
+=== *Resource
+
+A resource is a link to any url on the internet.
+
+.Schema
+[source,json]
+----
+{
+  "resource_id": UUID,
+  "resource_type": STRING,
+  "url": URI,
+  "tags": ARRAY [STRING],
+  "content": ANY
+}
+----
+
+
+== LEGEND
+
++++*+++ means not user generated
