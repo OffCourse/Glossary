@@ -74,7 +74,9 @@ A resource is a link to any url on the internet.
 ----
 {
   "resource_id": UUID,
-  "resource_type": STRING,
+  "resource_type": ENUM ["video", "html", "md", "mp3", ...],
+  "title": STRING,
+  "authors": ARRAY [STRING],
   "url": URI,
   "tags": ARRAY [STRING],
   "content": ANY
