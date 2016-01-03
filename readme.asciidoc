@@ -29,7 +29,7 @@ A course is a list of tasks (checkpoints), that can either be original or forked
 [source,json]
 ----
 {
-  "course_id": UUID,
+  "course_id": STRING (Composed of: UUID/USER_ID/Version),
   "curator": USER_ID,
   "course_version": Float,
   "goal": STRING (Max-length 40 chars),
@@ -38,12 +38,8 @@ A course is a list of tasks (checkpoints), that can either be original or forked
   "time_created": *DATE,
   "time_updated": *DATE,
   "tags": *ARRAY [String],
-  "forked_from": *OBJECT {"curator": USER_ID,
-                         "course_id": COURSE_ID,
-                         "course_version": Float},
-  "forks": *ARRAY [Object {"curator_id": USER_ID,
-                         "course_id": COURSE_ID,
-                         "course_version": 1}],
+  "forked_from": course_id
+  "forks": *ARRAY [course_id],
   "checkpoints": ARRAY [CHECKPOINT] Max 7
 }
 ----
